@@ -20,6 +20,7 @@ const Button = styled.button`
     color: #dedada;
     background-color: #fafafa;
     border: 1px solid #dadada;
+    cursor: default;
   }
 `;
 
