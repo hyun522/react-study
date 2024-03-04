@@ -5,7 +5,7 @@ import { add, subtract, multiply, divide } from './utils/calculator';
 const OPERATOR = ['+', '-', '×', '÷'];
 
 function App() {
-  const [total, setTotal] = useState(0);
+  const [total, setTotal] = useState<number | '오류'>(0);
   const [operand, setOperand] = useState(0);
   const [operator, setOperator] = useState('');
 
@@ -15,41 +15,56 @@ function App() {
   };
 
   const handleCalculator = (number: number) => {
-    //3자리 숫자까지 입력가능
-    if (total === 0) {
+    if (total === '오류') {
       setTotal(number);
+      setOperand(0);
+      setOperator('');
+    } else if (operator === '') {
+      const newNumber = +total * 10 + number;
+      setTotal(newNumber);
     } else {
-      setOperand(number);
+      const newNumber = operand * 10 + number;
+      setOperand(newNumber);
     }
   };
 
   const handleResult = (op: string) => {
+    let result;
+
     switch (op) {
       case '+':
-        setTotal(add(total, operand));
+        result = add(+total, operand);
         break;
       case '-':
-        setTotal(subtract(total, operand));
-
+        result = subtract(+total, operand);
         break;
       case '×':
-        setTotal(multiply(total, operand));
-        //숫자 너무 커질때
+        result = multiply(+total, operand);
         break;
       case '÷':
-        setTotal(divide(total, operand));
-        //소숫점 많이 내려갈때
+        result = divide(+total, operand);
         break;
       default:
         return console.log(op);
     }
+
+    if (!isFinite(result)) {
+      setTotal('오류');
+      setOperator('');
+    } else {
+      setTotal(result);
+    }
+
     setOperand(0);
   };
 
   return (
     <>
+      <h5>
+        {total} {operator !== '' && operator} {operand !== 0 && operand}
+      </h5>
+
       <h1>{total}</h1>
-      <h2>{operand}</h2>
 
       {[...Array(10)].map((_, i) => (
         <Button onClick={() => handleCalculator(i)} key={i}>
@@ -64,7 +79,6 @@ function App() {
       ))}
 
       <Button
-        disabled={operand === 0}
         onClick={() => {
           handleResult(operator);
         }}
@@ -77,6 +91,7 @@ function App() {
         onClick={() => {
           setTotal(0);
           setOperand(0);
+          setOperator('');
         }}
       >
         AC
