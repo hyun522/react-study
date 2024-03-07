@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import Counter from "./components/Counter";
+import App from "./components/App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Counter />);
+root.render(<App />);
