@@ -1,43 +1,106 @@
-import { useState } from "react";
-import styled from "styled-components";
+import { useState } from 'react';
+import { Button, Calculator, Formula, Modifiers, NumberList, OperList } from './styledCounter';
+import { add, subtract, multiply, divide } from './utils/calculator';
 
-const Button = styled.button`
-  margin-right: 1rem;
-  font-weight: 500;
-  font-size: 2rem;
-  color: #865a82;
-  border-radius: 0.3rem;
-  border: 1px solid #ee9ee6;
-  background-color: rgba(233, 183, 225, 0.515);
-
-  &:hover {
-    background-color: #ee9ee67c;
-    outline: #ee9ee6;
-    cursor: pointer;
-  }
-
-  &:disabled {
-    color: #dedada;
-    background-color: #fafafa;
-    border: 1px solid #dadada;
-    cursor: default;
-  }
-`;
+const OPERATOR = ['+', '-', '×', '÷'];
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState<number | '오류'>(0);
+  const [operand, setOperand] = useState(0);
+  const [operator, setOperator] = useState('');
+
+  const handleOperator = (op: string) => {
+    setOperator(op);
+    console.log(op);
+  };
+
+  const handleCalculator = (number: number) => {
+    if (total === '오류') {
+      setTotal(number);
+      setOperand(0);
+      setOperator('');
+    } else if (operator === '') {
+      const newNumber = +total * 10 + number;
+      setTotal(newNumber);
+    } else {
+      const newNumber = operand * 10 + number;
+      setOperand(newNumber);
+    }
+  };
+
+  const handleResult = (op: string) => {
+    let result;
+
+    switch (op) {
+      case '+':
+        result = add(+total, operand);
+        break;
+      case '-':
+        result = subtract(+total, operand);
+        break;
+      case '×':
+        result = multiply(+total, operand);
+        break;
+      case '÷':
+        result = divide(+total, operand);
+        break;
+      default:
+        return console.log(op);
+    }
+
+    if (!isFinite(result)) {
+      setTotal('오류');
+      setOperator('');
+    } else {
+      setTotal(result);
+    }
+
+    setOperand(0);
+  };
 
   return (
-    <>
-      <h1>{count}</h1>
+    <Calculator>
+      <Formula>
+        <h5>
+          {total !== '오류' && total} {operator !== '' && operator} {operand !== 0 && operand}
+        </h5>
 
-      <Button disabled={count >= 10} onClick={() => setCount((count) => count + 1)}>
-        + 1
-      </Button>
-      <Button disabled={count === 0} onClick={() => setCount((count) => count - 1)}>
-        - 1
-      </Button>
-    </>
+        <h1>{operator === '' ? total : operand}</h1>
+      </Formula>
+      <NumberList>
+        {[...Array(10)].map((_, i) => (
+          <Button key={9 - i} onClick={() => handleCalculator(9 - i)}>
+            {9 - i}
+          </Button>
+        ))}
+      </NumberList>
+      <br />
+      <OperList>
+        {OPERATOR.map((oper) => (
+          <Button disabled={total === 0} onClick={() => handleOperator(oper)}>
+            {oper}
+          </Button>
+        ))}
+
+        <Button
+          onClick={() => {
+            handleResult(operator);
+          }}
+        >
+          =
+        </Button>
+      </OperList>
+      <Modifiers
+        disabled={total === 0}
+        onClick={() => {
+          setTotal(0);
+          setOperand(0);
+          setOperator('');
+        }}
+      >
+        AC
+      </Modifiers>
+    </Calculator>
   );
 }
 
