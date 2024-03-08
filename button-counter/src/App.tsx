@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from './styledCounter';
+import { Button, Calculator, Formula, Modifiers, NumberList, OperList } from './styledCounter';
 import { add, subtract, multiply, divide } from './utils/calculator';
 
 const OPERATOR = ['+', '-', '×', '÷'];
@@ -59,34 +59,38 @@ function App() {
   };
 
   return (
-    <>
-      <h5>
-        {total} {operator !== '' && operator} {operand !== 0 && operand}
-      </h5>
+    <Calculator>
+      <Formula>
+        <h5>
+          {total !== '오류' && total} {operator !== '' && operator} {operand !== 0 && operand}
+        </h5>
 
-      <h1>{total}</h1>
-
-      {[...Array(10)].map((_, i) => (
-        <Button onClick={() => handleCalculator(i)} key={i}>
-          {i}
-        </Button>
-      ))}
+        <h1>{operator === '' ? total : operand}</h1>
+      </Formula>
+      <NumberList>
+        {[...Array(10)].map((_, i) => (
+          <Button key={9 - i} onClick={() => handleCalculator(9 - i)}>
+            {9 - i}
+          </Button>
+        ))}
+      </NumberList>
       <br />
-      {OPERATOR.map((oper) => (
-        <Button disabled={total === 0} onClick={() => handleOperator(oper)}>
-          {oper}
+      <OperList>
+        {OPERATOR.map((oper) => (
+          <Button disabled={total === 0} onClick={() => handleOperator(oper)}>
+            {oper}
+          </Button>
+        ))}
+
+        <Button
+          onClick={() => {
+            handleResult(operator);
+          }}
+        >
+          =
         </Button>
-      ))}
-
-      <Button
-        onClick={() => {
-          handleResult(operator);
-        }}
-      >
-        =
-      </Button>
-
-      <Button
+      </OperList>
+      <Modifiers
         disabled={total === 0}
         onClick={() => {
           setTotal(0);
@@ -95,8 +99,8 @@ function App() {
         }}
       >
         AC
-      </Button>
-    </>
+      </Modifiers>
+    </Calculator>
   );
 }
 
