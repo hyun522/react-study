@@ -14,10 +14,10 @@ const Button = styled.button`
   margin-right: 5px;
 
   //아래 에러표시 해결
-  &: hover {
+  /* &: hover {
     background-color: #347cf6;
     transition: all 0.5s;
-  }
+  } */
 `;
 
 function Counter() {

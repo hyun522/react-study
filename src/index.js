@@ -1,5 +1,19 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Calculator from './Calculator.js'
+import Counter from './Counter.js';
+import ToDoList from './ToDoList.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+    <BrowserRouter>
+        <Routes > 
+          <Route path='/' element={<App />}/>
+          <Route path="/counter" element={<Counter />} />
+          <Route path="/calculator" element={<Calculator />} />
+          <Route path="/todolist" element={<ToDoList />} />
+        </Routes>
+    </BrowserRouter>
+);
+
