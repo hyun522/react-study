@@ -1,0 +1,37 @@
+.content {
+    width:500px; 
+    background-color: pink;
+    margin:0 auto;
+}
+.title {
+    font-size:20px;
+    color:#fff;
+    text-align: center;
+    padding:10px 0;
+    background-color: #9C88FE;
+}
+.putInputButton {
+    width:100%;
+    background-color: red;
+    display: flex;
+    justify-content:space-between;
+    
+}
+.putText {
+    width:100%;
+    color:#fff;
+    background-color:#485056;
+    border:none;
+    padding:10px;
+}
+.plusButton {
+    background-color: #858E96;
+    border:none;
+    color: #F7F7F8;
+    padding:10px 20px;
+    font-size:20px;
+}
+.list {
+    background-color: #fff;
+    width: 100%;
+}
