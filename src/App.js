@@ -14,6 +14,9 @@ function App() {
         <div>
           <Link to="/todolist">todolist</Link>  
         </div>
+        <div>
+          <Link to="/practice">practice</Link>  
+        </div>
      
       </>
 
