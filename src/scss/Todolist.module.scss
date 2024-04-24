@@ -1,7 +1,12 @@
+.main {
+    background-color: #E9ECEF;
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
 .content {
     width:500px; 
-    background-color: pink;
-    margin:0 auto;
 }
 .title {
     font-size:20px;
@@ -34,4 +39,33 @@
 .list {
     background-color: #fff;
     width: 100%;
+    height : 500px;
+}
+.putTexts {
+    display: flex;
+    justify-content: space-between;
+    padding:20px;
+    &:hover {
+        background-color:#E9ECEF;
+    }
+}
+.editedTextBox {
+    @extend .putTexts;
+    height:56px;
+    box-sizing: border-box;
+    align-items: center;
+}
+.editTexts {
+    font-size:16px;
+    padding:2px;
+}
+.checkBox {
+    margin-right:5px;
+}
+.checked {
+    color: gray; /* 체크된 항목의 배경색을 변경 */
+    text-decoration: line-through;
+}
+.pen {
+    margin-right:10px;
 }
