@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import style from './scss/Todolist.module.scss'
 
-
 function Todolist() {
     const [text, setText] = useState('');
     const [displayText, setDisplayText] = useState([]);
@@ -42,7 +41,7 @@ function Todolist() {
     }
 
     const handlePutText = () => {
-        setDisplayText([...displayText, { text: text, checked: false }])
+        setDisplayText([...displayText, { text: text, checked: false}])
         setText('')
         console.log(displayText)
     }
@@ -72,16 +71,19 @@ function Todolist() {
 
     const handleDelete = (index) => {
         const updatedItems = [...displayText];
+        console.log(updatedItems)
         updatedItems.splice(index,1);
         setDisplayText(updatedItems)
+        setCheckedItems(index)
+        console.log(displayText)
+
     } 
 
     const handleCheckboxClick = (index) => {
-        setCheckedItems({
-            ...checkedItems,
-            [index]: !checkedItems[index]
-        });
-        console.log(checkedItems)
+        const updatedItems = [...displayText];
+        updatedItems[index].checked = !updatedItems[index].checked;
+        setDisplayText(updatedItems);
+        console.log(displayText)
     };
 
     return (
@@ -116,10 +118,10 @@ function Todolist() {
                                             <input
                                             className={style.checkBox}
                                             type="checkbox"
-                                            checked={checkedItems[index] || false}
+                                            checked={ displayText[index].checked}
                                             onChange={() => handleCheckboxClick(index)}
                                             />
-                                            <span className={checkedItems[index] ? style.checked : ''}>
+                                            <span className={displayText[index].checked ? style.checked : ''}>
                                                 {item.text}
                                             </span>
                                         </span>
