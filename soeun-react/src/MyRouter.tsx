@@ -2,6 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Count from "./functions/counter.tsx";
 import Calculator from "./functions/calculator.tsx";
 import TodoList from "./functions/todoList.tsx";
+
+
+
 const MyRouter = () => {
   return (
     <Router>
