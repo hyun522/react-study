@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Calculator from './Calculator.js';
 import Counter from './Counter.js';
 import Todolist from './Todolist.js';
-import Star from './star.tsx';
+import Star from './Star.tsx';
 import Practice from './Practice.js';
 import './scss/global.module.scss';
 
