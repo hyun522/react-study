@@ -7,7 +7,6 @@ const Container = styled.div`
   align-items: center;
 `;
 
-
 const Numbers = styled.div``;
 const Calculation = styled.div`
   display: flex;
@@ -142,6 +141,7 @@ export default function Calculator() {
           </Button>
         </Calculation>
       </Buttons>
+
   flex-direction: column;
 `;
 
@@ -178,6 +178,7 @@ export default function Calculator() {
         <button>+</button>
         <button>=</button>
       </Calculation>
+
     </Container>
   );
 }
