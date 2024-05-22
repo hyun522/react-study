@@ -1,0 +1,20 @@
+.bg {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-container {
+  width: 200px;
+}
+
+.right-container {
+  width: 200px;
+}

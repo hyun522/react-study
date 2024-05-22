@@ -62,6 +62,7 @@
 // Drag => dualdragList
 import React, { useRef, useState } from 'react';
 import DualSelector from '../components/DualDragList';
+import style from '../scss/Drag.module.scss';
 
 export default function DragAndDrop() {
   const [list1, setList1] = useState(['Item 1', 'Item 2', 'Item 3']);
@@ -85,9 +86,10 @@ export default function DragAndDrop() {
   };
 
   //중복코드 제거
-  //list1 -> list2 로 가면 event 발생함
-  //ui 해결
   //초기화
+  //list 한쪽으로 전부 옮겨서 한쪽이 비게 되면 list 삽입이 되지 않음
+  //가끔 List 요소 중 하나가 다시 튕겼다가 들어감
+
   const handleDrop = () => {
     const sourceList =
       dragItem.current.listIdentifier === 'list1' ? [...list1] : [...list2];
@@ -131,34 +133,42 @@ export default function DragAndDrop() {
   };
 
   return (
-    <div>
-      <div>
-        <h2>List 1</h2>
-        {list1.map((item, index) => (
-          <DualSelector
-            key={index}
-            item={item}
-            index={index}
-            listIdentifier='list1'
-            handleDragStart={handleDragStart}
-            handleDragEnter={handleDragEnter}
-            handleDragEnd={handleDrop}
-          />
-        ))}
-      </div>
-      <div>
-        <h2>List 2</h2>
-        {list2.map((item, index) => (
-          <DualSelector
-            key={index}
-            item={item}
-            index={index}
-            listIdentifier='list2'
-            handleDragStart={handleDragStart}
-            handleDragEnter={handleDragEnter}
-            handleDragEnd={handleDrop}
-          />
-        ))}
+    <div className={style.bg}>
+      <div className={style.main}>
+        <div className={style['left-container']}>
+          <h2>List 1</h2>
+          {list1.map((item, index) => (
+            <DualSelector
+              key={index}
+              item={item}
+              index={index}
+              listIdentifier='list1'
+              handleDragStart={handleDragStart}
+              handleDragEnter={handleDragEnter}
+              handleDragEnd={handleDrop}
+              ondragOver={(e) => {
+                e.preventDefault();
+              }}
+            />
+          ))}
+        </div>
+        <div className={style['right-container']}>
+          <h2>List 2</h2>
+          {list2.map((item, index) => (
+            <DualSelector
+              key={index}
+              item={item}
+              index={index}
+              listIdentifier='list2'
+              handleDragStart={handleDragStart}
+              handleDragEnter={handleDragEnter}
+              handleDragEnd={handleDrop}
+              ondragOver={(e) => {
+                e.preventDefault();
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
