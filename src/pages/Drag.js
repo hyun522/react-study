@@ -1,3 +1,4 @@
+// 드래그 하나만 짤떄
 // import { useRef, useState } from 'react';
 
 // export default function Drag() {
@@ -18,7 +19,7 @@
 //   };
 
 //   // 드래그 중인 대상이 위로 포개졌을 때
-//   const dragEnter = (e, position) => {
+//   const dragEnterpink;, position) => {
 //     dragOverItem.current = position;
 //     console.log(e.target.innerHTML);
 //   };
@@ -69,26 +70,17 @@ export default function DragAndDrop() {
   const [list2, setList2] = useState(['Item 4', 'Item 5', 'Item 6']);
 
   const dragItem = useRef();
-  //드래그할 아이템의 인덱스
   const dragOverItem = useRef();
-  //드랍할 아이템의 인덱스
 
   const handleDragStart = (e, index, listIdentifier) => {
     dragItem.current = { index, listIdentifier };
-    //값이 하나만 담긴다. console.log(dragItem) 에서는 값을 확인 할 수 없다.
     console.log(dragItem.current);
   };
 
-  //이동시 지나다닐 값
   const handleDragEnter = (e, index, listIdentifier) => {
     dragOverItem.current = { index, listIdentifier };
     console.log(dragOverItem.current);
   };
-
-  //중복코드 제거
-  //초기화
-  //list 한쪽으로 전부 옮겨서 한쪽이 비게 되면 list 삽입이 되지 않음
-  //가끔 List 요소 중 하나가 다시 튕겼다가 들어감
 
   const handleDrop = () => {
     const sourceList =
@@ -102,15 +94,18 @@ export default function DragAndDrop() {
       dragOverItem.current.listIdentifier === 'list2'
     ) {
       const [movedItem] = sourceList.splice(dragItem.current.index, 1);
-      targetList.splice(dragOverItem.current.index, 0, movedItem);
+      targetList.splice(dragOverItem.current.index + 1, 0, movedItem);
       setList1(sourceList);
       setList2(targetList);
+      if (dragOverItem.current.index === '') {
+        setList1([...list2, movedItem]);
+      }
     } else if (
       dragItem.current.listIdentifier === 'list2' &&
       dragOverItem.current.listIdentifier === 'list1'
     ) {
       const [movedItem] = sourceList.splice(dragItem.current.index, 1);
-      targetList.splice(dragOverItem.current.index, 0, movedItem);
+      targetList.splice(dragOverItem.current.index + 1, 0, movedItem);
       setList1(targetList);
       setList2(sourceList);
     } else {
@@ -119,22 +114,40 @@ export default function DragAndDrop() {
         dragOverItem.current.listIdentifier === 'list1'
       ) {
         const [movedItem] = sourceList.splice(dragItem.current.index, 1);
-        sourceList.splice(dragOverItem.current.index, 0, movedItem);
+        sourceList.splice(dragOverItem.current.index + 1, 0, movedItem);
         setList1(sourceList);
       } else {
         const [movedItem] = sourceList.splice(dragItem.current.index, 1);
-        sourceList.splice(dragOverItem.current.index, 0, movedItem);
+        sourceList.splice(dragOverItem.current.index + 1, 0, movedItem);
         setList2(sourceList);
       }
+      console.log(sourceList);
+    }
+    if (list1.length === 0 && dragItem.current.listIdentifier === 'list2') {
+      console.log(sourceList);
+      console.log(dragItem.current.index);
+      const [movedItem] = sourceList.splice(dragItem.current.index, 1);
+      console.log(movedItem);
+      setList1([movedItem]);
     }
 
     dragItem.current = null;
     dragOverItem.current = null;
   };
 
+  const handleReset = () => {
+    setList1(['Item 1', 'Item 2', 'Item 3']);
+    setList2(['Item 4', 'Item 5', 'Item 6']);
+  };
+
   return (
     <div className={style.bg}>
-      <div className={style.main}>
+      <div
+        className={style.main}
+        ondragOver={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className={style['left-container']}>
           <h2>List 1</h2>
           {list1.map((item, index) => (
@@ -152,6 +165,9 @@ export default function DragAndDrop() {
             />
           ))}
         </div>
+        <button className={style.reset} onClick={handleReset}>
+          초기화
+        </button>
         <div className={style['right-container']}>
           <h2>List 2</h2>
           {list2.map((item, index) => (
