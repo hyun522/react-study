@@ -20,6 +20,9 @@ function App() {
         <Link to='/drag'>drag</Link>
       </div>
       <div>
+        <Link to='/stopwatch'>stopwatch</Link>
+      </div>
+      <div>
         <Link to='/practice'>practice</Link>
       </div>
     </>

@@ -7,6 +7,7 @@ import Todolist from './pages/ToDoList.js';
 import Star from './pages/star.tsx';
 import Practice from './Practice.js';
 import Drag from './pages/Drag.js';
+import StopWatch from './pages/StopWatch.js';
 import './scss/global.module.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,6 +20,7 @@ root.render(
       <Route path='/todolist' element={<Todolist />} />
       <Route path='/star' element={<Star />} />
       <Route path='/drag' element={<Drag />} />
+      <Route path='/stopwatch' element={<StopWatch />} />
       <Route path='/practice' element={<Practice />} />
     </Routes>
   </BrowserRouter>
