@@ -7,7 +7,7 @@ import Todolist from './pages/ToDoList.js';
 import Star from './pages/star.tsx';
 import Practice from './Practice.js';
 import Drag from './pages/Drag.js';
-import StopWatch from './pages/StopWatch.js';
+import StopWatch from './pages/StopWatch.tsx';
 import './scss/global.module.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
