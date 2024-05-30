@@ -4,6 +4,7 @@ import Calculator from "./functions/calculator.tsx";
 import TodoList from "./functions/todoList.tsx";
 import Star from "./functions/star.tsx";
 import DragAndDrop from "./functions/dargDrop.tsx";
+import StopWatch from "./functions/stopWatch.tsx";
 const MyRouter = () => {
   return (
     <Router>
@@ -12,7 +13,8 @@ const MyRouter = () => {
         <Route path="/functions/calculator" element={<Calculator />} />
         <Route path="/functions/todoList" element={<TodoList />} />
         <Route path="/functions/star" element={<Star/>} />
-         <Route path="/functions/dragDrop" element={<DragAndDrop/>} />
+        <Route path="/functions/dragDrop" element={<DragAndDrop/>} />
+        <Route path="/functions/stopWatch" element={<StopWatch/>} />
       </Routes>
     </Router>
   );
