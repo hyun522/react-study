@@ -1,9 +1,16 @@
 //상태관리
 // 1. 스탑워치 시작 버튼을 눌렀는가
 // 2. 눌렀다면 카운트 다운을 시작해라
+// 3. Reset 시켜라
+// 4. 사용자가 시간을 기록할수 있도록 할것
 
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
+
+type Lap = {
+  id: number;
+  lap: number;
+};
 
 const Bg = styled.div`
   height: 100vh;
@@ -44,8 +51,6 @@ const Reset = styled(StopOrStart)`
   box-shadow: 0 5px 0 0 #dc403f;
 `;
 
-const LapList = styled.div``;
-
 const Lap = styled(StopOrStart)`
   background-color: #bbb;
   box-shadow: 0 5px 0 0 #999;
@@ -55,13 +60,12 @@ const Lap = styled(StopOrStart)`
   left: 0;
 `;
 
-//setInterval 함수는 일정 시간 간격으로 지정된 함수를 반복해서 실행합니다. 이 함수는 두 개의 인자를 받는다. 실행할 함수와 함수가 실행될 시간 간격
-//clearInterval 함수는 setInterval로 설정된 반복 실행을 중지 setInterval이 반환한 함수를 인자로 받는다.
+const LapList = styled.div``;
 
 export default function StopWatch() {
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const [time, setTime] = useState<number>(0);
-  const [Laps, setLaps] = useState<[]>([]);
+  const [laps, setLaps] = useState<Lap[]>([]);
   //time을 실시간 관리하는 useRef
   const intervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
@@ -97,6 +101,22 @@ export default function StopWatch() {
 
   //0530 laplist 보여주기 type 지정하기
 
+  const handleLapClick = () => {
+    const newLap = {
+      id: laps.length === 0 ? 1 : laps[laps.length - 1].id + 1,
+      //첫번째 클릭시 laps.length가 0이라서 임의로 1을 넣어준다. 그리고 lap도 같이 값을 넣어준다.
+      //두번째 클릭시 laps.length가 1이라서 laps[0].id laps배열의 첫번째 객체의 id 1 (=이전값)을 가져 오겠다.  거기에 +1을 해주겠다
+      lap: time,
+    };
+    setLaps((prevLaps) => [...prevLaps, newLap]);
+  };
+  console.log(laps);
+
+  //@TO-DO
+  //stop 버튼 누르면 lap 함수 안보이도록 만들기 => ui먼저 구현
+  //시간 00:00:00으로 변경하기
+  //laps배열 중에서 하나 삭제하기
+
   return (
     <Bg>
       <Main>
@@ -109,8 +129,13 @@ export default function StopWatch() {
           </StopOrStart>
           <Reset onClick={resetStopWatch}>RESET</Reset>
         </Buttons>
-        <LapList>{Laps}</LapList>
-        {isRunning && <Lap>Lap</Lap>}
+
+        <LapList>
+          {laps.map((lap, index) => (
+            <div key={index}>{lap.lap}</div>
+          ))}
+        </LapList>
+        {isRunning && <Lap onClick={handleLapClick}>Lap</Lap>}
       </Main>
     </Bg>
   );
