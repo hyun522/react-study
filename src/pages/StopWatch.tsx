@@ -1,9 +1,3 @@
-//상태관리
-// 1. 스탑워치 시작 버튼을 눌렀는가
-// 2. 눌렀다면 카운트 다운을 시작해라
-// 3. Reset 시켜라
-// 4. 사용자가 시간을 기록할수 있도록 할것
-
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -19,8 +13,8 @@ const Bg = styled.div`
 `;
 
 const Main = styled.div`
-  background-color: pink;
-  padding-top: 90px;
+  padding: 90px 20px 0 20px;
+  border: 1px solid #ddd;
   text-align: center;
   position: relative;
 `;
@@ -54,13 +48,13 @@ const Reset = styled(StopOrStart)`
 const Lap = styled(StopOrStart)`
   background-color: #bbb;
   box-shadow: 0 5px 0 0 #999;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 `;
 
-const LapList = styled.div``;
+const LapList = styled.div`
+  margin-top: 20px;
+  line-height: 25px;
+  font-size: 20px;
+`;
 
 export default function StopWatch() {
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -86,7 +80,6 @@ export default function StopWatch() {
       }, 1000);
       setIsRunning(true);
     } else {
-      //버튼을 눌렀을때 false이면 멈추겠다.
       clearInterval(intervalRef.current);
       setIsRunning(false);
     }
@@ -97,9 +90,8 @@ export default function StopWatch() {
     clearInterval(intervalRef.current);
     setTime(0);
     setIsRunning(false);
+    setLaps([]);
   };
-
-  //0530 laplist 보여주기 type 지정하기
 
   const handleLapClick = () => {
     const newLap = {
@@ -124,18 +116,18 @@ export default function StopWatch() {
         <Buttons>
           <StopOrStart onClick={toggleTimer}>
             {isRunning ? 'STOP' : 'START'}
-            {/* stop => false 이다. start => true가 되면 작동함  근데 시작하면 STOP이 보여야 한다.
-            즉, false일때(=STOP) start가 보여야한다. */}
           </StopOrStart>
-          <Reset onClick={resetStopWatch}>RESET</Reset>
+          {isRunning ? (
+            <Lap onClick={handleLapClick}>Lap</Lap>
+          ) : (
+            <Reset onClick={resetStopWatch}>RESET </Reset>
+          )}
         </Buttons>
-
         <LapList>
           {laps.map((lap, index) => (
             <div key={index}>{lap.lap}</div>
           ))}
         </LapList>
-        {isRunning && <Lap onClick={handleLapClick}>Lap</Lap>}
       </Main>
     </Bg>
   );
