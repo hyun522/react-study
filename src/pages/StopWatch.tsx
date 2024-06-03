@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type Lap = {
   id: number;
-  lap: number;
+  lap: string;
 };
 
 const Bg = styled.div`
@@ -45,7 +45,7 @@ const Reset = styled(StopOrStart)`
   box-shadow: 0 5px 0 0 #dc403f;
 `;
 
-const Lap = styled(StopOrStart)`
+const Laps = styled(StopOrStart)`
   background-color: #bbb;
   box-shadow: 0 5px 0 0 #999;
 `;
@@ -76,15 +76,25 @@ export default function StopWatch() {
         // 호출 스케일링을 구현 하는 두가지 방법
         // setTimeout을 이용해 일정 시간이 지난 후에 함수를 실행하는 방법
         // setInterval을 이용해 일정 시간 간격을 두고 함수를 실행하는 방법
-        setTime((prev) => prev + 1000);
-      }, 1000);
+        setTime((prev) => prev + 1);
+      }, 10);
+      //  10밀리초마다 시간 값을 1 증가 시킨다. 1초에 100번의 변경이 발생 ??
       setIsRunning(true);
     } else {
       clearInterval(intervalRef.current);
       setIsRunning(false);
     }
   };
-  console.log(isRunning);
+
+  const formatTime = (milliseconds: number) => {
+    //1초에 100번 바뀌는 숫자를 받아서
+    const totalSeconds = Math.floor(milliseconds / 100); //밀리초 단위 시간을 초 단위로 변환하는 과정 / 밀리초는 1000 초는 100
+    //100으로 나눠서 초를 계산
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0'); //1000을 60으로 나눈 몫
+    const seconds = String(totalSeconds % 60).padStart(2, '0'); // 1000을 60으로 나눈 나머지
+    const ms = String(milliseconds % 100).padStart(2, '0'); // 밀리초를 2자리로 표시
+    return `${minutes}:${seconds}:${ms}`;
+  };
 
   const resetStopWatch = () => {
     clearInterval(intervalRef.current);
@@ -98,27 +108,28 @@ export default function StopWatch() {
       id: laps.length === 0 ? 1 : laps[laps.length - 1].id + 1,
       //첫번째 클릭시 laps.length가 0이라서 임의로 1을 넣어준다. 그리고 lap도 같이 값을 넣어준다.
       //두번째 클릭시 laps.length가 1이라서 laps[0].id laps배열의 첫번째 객체의 id 1 (=이전값)을 가져 오겠다.  거기에 +1을 해주겠다
-      lap: time,
+      lap: formatTime(time),
     };
     setLaps((prevLaps) => [...prevLaps, newLap]);
   };
   console.log(laps);
 
   //@TO-DO
-  //stop 버튼 누르면 lap 함수 안보이도록 만들기 => ui먼저 구현
-  //시간 00:00:00으로 변경하기
+  //stop 버튼 누르면 lap 함수 안보이도록 만들기 => ui먼저 구현 ✅
+  //시간 00:00:00으로 변경하기✅
   //laps배열 중에서 하나 삭제하기
+  //00:00:00흔들림 방지
 
   return (
     <Bg>
       <Main>
-        <Time>{time}</Time>
+        <Time>{formatTime(time)}</Time>
         <Buttons>
           <StopOrStart onClick={toggleTimer}>
             {isRunning ? 'STOP' : 'START'}
           </StopOrStart>
           {isRunning ? (
-            <Lap onClick={handleLapClick}>Lap</Lap>
+            <Laps onClick={handleLapClick}>Lap</Laps>
           ) : (
             <Reset onClick={resetStopWatch}>RESET </Reset>
           )}
