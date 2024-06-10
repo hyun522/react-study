@@ -62,110 +62,101 @@ border-radius: 1rem;
     background-color:coral;
   }
 `
-
+interface DragItemType {
+  list: 'list' | 'li';
+  index: number;
+}
 export default function DragAndDrop() {
- const dragItem = useRef<number|null>(null);
- const dragOverItem= useRef<number|null>(null);
+ const dragItem = useRef<DragItemType | null>(null);
+  const dragOverItem = useRef<DragItemType | null>(null);
  const initialList = ["Item1", "Item2", "Item3", "Item4", "Item5", "Item6"];
  const initialLi = ["li1", "li2", "li3", "li4", "li5", "li6"];
- const[list,setList]= useState<string[]>([
-  "Item1",
-  "Item2",
-  "Item3",
-  "Item4",
-  "Item5",
-  "Item6"
- ]);
- const [li, setLi]=useState<string[]>([
-  "li1","li2","li3","li4","li5","li6"
- ])
-const [history, setHistory]=useState<string[][]>([]);
+ const[list,setList]= useState<string[]>(initialList);
+ const [li, setLi]=useState<string[]>(initialLi);
+const [history, setHistory]=useState<{list:string[], li:string[]}[]>([]);
 
- const saveHistory = (currentList:string[])=>{
-  setHistory((prev)=>[...prev, currentList]);
+ const saveHistory = ()=>{
+  setHistory((prev)=>[...prev, {list:[...list], li:[...li]}]);
  };
 
  const undo=()=>{
   if(history.length === 0)return;
     const prevList = history[history.length-1];
     setHistory((prev)=> prev.slice(0, prev.length-1));
-    setList(prevList);
-    setLi(prevList);
+    setList(prevList.list);
+    setLi(prevList.li);
   
  }
- const dragStart=(e:React.DragEvent<HTMLDivElement>, position:number)=>{
-  dragItem.current=position;
-  saveHistory(list);
-  console.log(e.currentTarget.innerHTML);
- };
+  const dragStart = (_: React.DragEvent<HTMLDivElement>, listName: 'list' | 'li', index: number) => {
+    dragItem.current = { list: listName, index };
+    saveHistory();
+  };
 
- const dragEnter=(_:React.DragEvent<HTMLDivElement>, position:number)=>{
-  dragOverItem.current = position;
 
- }
+  const dragEnter = (_: React.DragEvent<HTMLDivElement>, listName: 'list' | 'li', index: number) => {
+    dragOverItem.current = { list: listName, index };
+  };
 
- const drop=()=>{
-  if(dragItem.current !== null && dragOverItem.current !==null){
-    const newList=[...list];
-    const newli=[...li];
-    const dragItemValue = newList[dragItem.current];
-    const dragliValue = newList[dragItem.current];
-    newList.splice(dragItem.current,1);
-    newList.splice(dragOverItem.current,0, dragItemValue);
-    newli.splice(dragItem.current,1);
-    newli.splice(dragOverItem.current,0, dragliValue);
-    dragItem.current = null;
-    dragOverItem.current=null;
-    setList(newList);
-    setLi(newli);
-  }
- };
- const reset=()=>{
-  setList(initialList);
-  setLi(initialLi);
- }
+  const drop = () => {
+    if (dragItem.current && dragOverItem.current) {
+      const sourceList = dragItem.current.list === 'list' ? list : li;
+      const targetList = dragOverItem.current.list === 'list' ? list : li;
+      const setSourceList = dragItem.current.list === 'list' ? setList : setLi;
+      const setTargetList = dragOverItem.current.list === 'list' ? setList : setLi;
+
+      const sourceItem = sourceList[dragItem.current?.index];
+      sourceList.splice(dragItem.current.index, 1);
+
+      targetList.splice(dragOverItem.current.index, 0, sourceItem);
+
+      setSourceList([...sourceList]);
+      setTargetList([...targetList]);
+
+      dragItem.current = null;
+      dragOverItem.current = null;
+    }
+  };
+
+  const reset = () => {
+    setList(initialList);
+    setLi(initialLi);
+  };
+
   return (
     <Wrapper>
-    <Title>아래 아이템을 드래그 해보세요!</Title>
-    <ListWrapper>
-   <Lists>
-    {list &&
-    list.map((item,idx)=>(
-      <List
-      key={idx}
-   draggable
-   onDragStart={(e)=>dragStart(e,idx)}
-   onDragEnter={(e)=>dragEnter(e,idx)}
-   onDragEnd={drop}
-   onDragOver={(e)=>e.preventDefault()}
-   >
-    {item}
-   </List>
-
-    ))
-    
-    }  </Lists>
- <Lists>
-   {list &&
-    list.map((item,idx)=>(
-      <List
-   key={idx}
-   draggable
-   onDragStart={(e)=>dragStart(e,idx)}
-   onDragEnter={(e)=>dragEnter(e,idx)}
-   onDragEnd={drop}
-   onDragOver={(e)=>e.preventDefault()}
-   >
-    {item}
-   </List>
-   
-    ))
-    }
-</Lists>
-    </ListWrapper>
-    
-    <ResetButton onClick={reset}>초기화 하기</ResetButton>
-    <BackButton onClick={undo}>이전 상태로 </BackButton>
+      <Title>아래 아이템을 드래그 해보세요!</Title>
+      <ListWrapper>
+        <Lists>
+          {list.map((item, idx) => (
+            <List
+              key={idx}
+              draggable
+              onDragStart={(e) => dragStart(e, 'list', idx)}
+              onDragEnter={(e) => dragEnter(e, 'list', idx)}
+              onDragEnd={drop}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              {item}
+            </List>
+          ))}
+        </Lists>
+        <Lists>
+          {li.map((item, idx) => (
+            <List
+              key={idx}
+              draggable
+              onDragStart={(e) => dragStart(e, 'li', idx)}
+              onDragEnter={(e) => dragEnter(e, 'li', idx)}
+              onDragEnd={drop}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              {item}
+            </List>
+          ))}
+        </Lists>
+      </ListWrapper>
+      <ResetButton onClick={reset}>초기화 하기</ResetButton>
+      <BackButton onClick={undo}>이전 상태로</BackButton>
     </Wrapper>
   );
 }
