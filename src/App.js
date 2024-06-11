@@ -17,6 +17,12 @@ function App() {
         <Link to='/star'>star</Link>
       </div>
       <div>
+        <Link to='/drag'>drag</Link>
+      </div>
+      <div>
+        <Link to='/stopwatch'>stopwatch</Link>
+      </div>
+      <div>
         <Link to='/practice'>practice</Link>
       </div>
     </>

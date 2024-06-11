@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import style from './scss/Todolist.module.scss';
+import style from '../scss/Todolist.module.scss';
 
 function Todolist() {
   const [text, setText] = useState('');

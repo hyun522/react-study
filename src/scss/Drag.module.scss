@@ -1,0 +1,28 @@
+.bg {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  width: 500px;
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-container {
+  width: 200px;
+}
+
+.reset {
+  width: 40px;
+  height: 20px;
+  border: 1px solid #555;
+  cursor: pointer;
+}
+
+.right-container {
+  width: 200px;
+}
