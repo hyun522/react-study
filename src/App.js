@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Button from './components/Button';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
       <div>
         <Link to='/practice'>practice</Link>
       </div>
+      <Button></Button>
     </>
   );
 }
