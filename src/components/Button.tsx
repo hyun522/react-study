@@ -4,9 +4,9 @@ import style from '../scss/Button.module.scss';
 
 interface ButtonProps {
   text: string;
-  color: 'gray' | 'purple' | 'green' | 'orange' | 'red';
+  color?: 'gray' | 'purple' | 'green' | 'orange' | 'red';
   type: 'button' | 'submit';
-  decline?: boolean;
+  loading?: boolean;
   onClick?: () => void;
   children: React.ReactNode;
 }
@@ -15,18 +15,20 @@ const cx = cs.bind(style);
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  color,
-  decline,
+  color = 'gray',
+  loading = false,
   type,
   onClick,
 }) => {
   return (
     <button
-      className={cx(`btn-${color}`, { 'btn-decline': decline })}
+      className={cx(`btn-${color}`, {
+        'btn-loading': loading,
+      })}
       type={type}
-      onClick={onClick}
+      disabled={loading}
     >
-      {children}
+      {loading ? <span className={cx('spinner')}></span> : children}
     </button>
   );
 };
