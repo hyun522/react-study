@@ -8,6 +8,7 @@ import Star from './pages/star.tsx';
 import Practice from './Practice.js';
 import Drag from './pages/Drag.js';
 import StopWatch from './pages/StopWatch.tsx';
+import Weather from './pages/weather.js';
 import './scss/global.module.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +23,7 @@ root.render(
       <Route path='/drag' element={<Drag />} />
       <Route path='/stopwatch' element={<StopWatch />} />
       <Route path='/practice' element={<Practice />} />
+      <Route path='/weather' element={<Weather />} />
     </Routes>
   </BrowserRouter>
 );
