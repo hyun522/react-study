@@ -1,35 +1,85 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useRef, useState } from "react";
+import List from "./components/List";
+import styled from "styled-components";
+import { Item, ListField } from "./components/List/Liststyle";
 
-function App() {
-  const [count, setCount] = useState(0)
+const DropField = styled.section`
+  background-color: skyblue;
+  width: 500px;
+  height: 50vh;
+`;
+
+function DropZone() {
+  return <DropField></DropField>;
+}
+
+const App = () => {
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+  const [list, setList] = useState([
+    "🍇포도",
+    "🍍파인애플",
+    "🍓딸기",
+    "🍊오렌지",
+    "🍋레몬",
+    "🍎사과",
+    "🍉수박",
+    "🍒체리",
+  ]);
+  const [dropZoneItems, setDropZoneItems] = useState([]);
+
+  const dragStart = (e, position) => {
+    dragItem.current = position;
+  };
+
+  const dragEnter = (e, position) => {
+    dragOverItem.current = position;
+  };
+
+  const drop = (e) => {
+    const newList = [...list];
+    const dragItemValue = newList[dragItem.current];
+    newList.splice(dragItem.current, 1);
+    newList.splice(dragOverItem.current, 0, dragItemValue);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setList(newList);
+  };
+
+  const dropInDropZone = (e) => {
+    const newList = [...list];
+    const dragItemValue = newList[dragItem.current];
+    newList.splice(dragItem.current, 1);
+    setList(newList);
+    setDropZoneItems([...dropZoneItems, dragItemValue]);
+    dragItem.current = null;
+    dragOverItem.current = null;
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ListField>
+        {list &&
+          list.map((item, idx) => (
+            <Item
+              key={idx}
+              draggable
+              onDragStart={(e) => dragStart(e, idx)}
+              onDragEnter={(e) => dragEnter(e, idx)}
+              onDragEnd={drop}
+              onDragOver={(e) => e.preventDefault()}
+            >
+              {item}
+            </Item>
+          ))}
+      </ListField>
+      <DropField onDrop={dropInDropZone} onDragOver={(e) => e.preventDefault()}>
+        {dropZoneItems.map((item, idx) => (
+          <Item key={idx}>{item}</Item>
+        ))}
+      </DropField>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
