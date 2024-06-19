@@ -26,7 +26,7 @@ function App() {
         <Link to='/practice'>practice</Link>
       </div>
       <div>
-        <Link to='/practice'>openWeatherMap</Link>
+        <Link to='/weather'>openWeatherMap</Link>
       </div>
     </>
   );
