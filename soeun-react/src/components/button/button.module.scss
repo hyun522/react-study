@@ -1,0 +1,70 @@
+.buttonWrapper {
+  width: 10rem;
+  height: 5rem;
+  color: black;
+  font-size: medium;
+  border: solid 1px rosybrown;
+  border-radius: 10%;
+
+  &:disabled {
+    background-color: gray;
+    border-color: blanchedalmond;
+    color: darkgray;
+  }
+
+  &:hover {
+    background-color: aquamarine;
+  }
+
+
+}
+
+.red {
+  background-color: red;
+
+  &:hover {
+    background-color: rgb(226, 93, 53);
+  }
+}
+
+.blue {
+  background-color: blue;
+
+  &:hover {
+    background-color: rgb(114, 236, 247);
+  }
+}
+
+.green {
+  background-color: green;
+
+  &:hover {
+    background-color: rgb(107, 239, 153);
+  }
+}
+
+.yellow {
+  background-color: yellow;
+
+  &:hover {
+    background-color: rgb(230, 230, 167);
+  }
+}
+
+.purple {
+  background-color: purple;
+
+  &:hover {
+    background-color: rgb(223, 144, 238);
+  }
+}
+
+.small {
+  width: 5rem;
+  height: 3rem;
+}
+
+.middle {
+  width: 6rem;
+  height: 4rem;
+}

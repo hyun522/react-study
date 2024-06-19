@@ -5,6 +5,7 @@ import TodoList from "./functions/todoList.tsx";
 import Star from "./functions/star.tsx";
 import DragAndDrop from "./functions/dargDrop.tsx";
 import StopWatch from "./functions/stopWatch.tsx";
+import ButtonPage from "./functions/buttonPage.tsx"
 const MyRouter = () => {
   return (
     <Router>
@@ -15,6 +16,7 @@ const MyRouter = () => {
         <Route path="/functions/star" element={<Star/>} />
         <Route path="/functions/dragDrop" element={<DragAndDrop/>} />
         <Route path="/functions/stopWatch" element={<StopWatch/>} />
+        <Route path="/functions/buttonPage" element={<ButtonPage/>} />
       </Routes>
     </Router>
   );
