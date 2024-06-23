@@ -20,7 +20,7 @@
 
 ${\textsf{\color{gray}⬇️ 구현할 기능에 대한 정보입니다.}}$
 
-> [🖇️ 링크](https://glory-cornflower-db3.notion.site/7b65d420ff694709914e1c7b79fabd95?pvs=4)
+> [🖇️ 링크](https://glory-cornflower-db3.notion.site/react-6069f49da76844a28e0b4594ddeb2732?pvs=4)
 
 
 <br /><br />
