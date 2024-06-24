@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Calculator from './pages/Calculator.js';
-import Counter from './pages/Counter.js';
-import Todolist from './pages/ToDoList.js';
-import Star from './pages/star.tsx';
-import Practice from './Practice.js';
-import Drag from './pages/Drag.js';
-import StopWatch from './pages/StopWatch.tsx';
-import Weather from './pages/weather.js';
+import Calculator from './pages/Calculator';
+import Counter from './pages/Counter';
+import Todolist from './pages/ToDoList';
+import Star from './pages/star';
+import Practice from './Practice';
+import Drag from './pages/Drag';
+import StopWatch from './pages/StopWatch';
+import OpenWeather from './pages/OpenWeather';
 import './scss/global.module.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -23,7 +23,7 @@ root.render(
       <Route path='/drag' element={<Drag />} />
       <Route path='/stopwatch' element={<StopWatch />} />
       <Route path='/practice' element={<Practice />} />
-      <Route path='/weather' element={<Weather />} />
+      <Route path='/openweather' element={<OpenWeather />} />
     </Routes>
   </BrowserRouter>
 );

@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-
 function App() {
   return (
     <>
@@ -26,7 +25,7 @@ function App() {
         <Link to='/practice'>practice</Link>
       </div>
       <div>
-        <Link to='/weather'>openWeatherMap</Link>
+        <Link to='/openweather'>openWeatherMap</Link>
       </div>
     </>
   );
