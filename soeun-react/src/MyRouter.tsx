@@ -6,6 +6,7 @@ import Star from "./functions/star.tsx";
 import DragAndDrop from "./functions/dargDrop.tsx";
 import StopWatch from "./functions/stopWatch.tsx";
 import ButtonPage from "./functions/buttonPage.tsx"
+import Weather from "./functions/weather/weather.tsx";
 const MyRouter = () => {
   return (
     <Router>
@@ -17,6 +18,7 @@ const MyRouter = () => {
         <Route path="/functions/dragDrop" element={<DragAndDrop/>} />
         <Route path="/functions/stopWatch" element={<StopWatch/>} />
         <Route path="/functions/buttonPage" element={<ButtonPage/>} />
+        <Route path="/functions/weather/weather" element={<Weather/>} />
       </Routes>
     </Router>
   );
