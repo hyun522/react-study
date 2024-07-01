@@ -1,6 +1,7 @@
 import React from 'react';
 import cs from 'classnames/bind';
 import style from '../scss/Button.module.scss';
+//리액트쿼리 issuccess로  prop을 받아 loading이 작동되도록 할수 있다.
 
 interface ButtonProps {
   text: string;

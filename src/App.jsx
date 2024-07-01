@@ -1,7 +1,4 @@
 import { Link } from 'react-router-dom';
-import Button from './components/Button';
-//리액트쿼리 issuccess
-
 function App() {
   return (
     <>
@@ -27,21 +24,9 @@ function App() {
       <div>
         <Link to='/practice'>practice</Link>
       </div>
-      <Button color='red' type='button'>
-        버튼입니다
-      </Button>
-      <Button color='orange' type='button'>
-        버튼입니다
-      </Button>
-      <Button color='green' type='button'>
-        버튼입니다
-      </Button>
-      <Button color='purple' type='button'>
-        버튼입니다
-      </Button>
-      <Button color='gray' type='button'>
-        버튼입니다
-      </Button>
+      <div>
+        <Link to='/openweather'>openWeatherMap</Link>
+      </div>
     </>
   );
 }

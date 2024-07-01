@@ -1,0 +1,28 @@
+.weatherInfo {
+  background-color: #e6e6fa;
+  width: 300px;
+  border-radius: 8px;
+  padding: 10px 10px;
+  margin-bottom: 10px;
+}
+
+.selectDay {
+  padding: 10px 5px;
+}
+
+.list {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+
+  &:hover,
+  &:focus {
+    background-color: #8193b5;
+    color: #fff;
+    transition: all 0.5s;
+  }
+}
