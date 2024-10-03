@@ -26,9 +26,10 @@ ${\textsf{\color{gray}⬇️ 구현한 기능을 확인할 수 있습니다..}}$
 
 > [🖇️ 링크](https://velog.io/@jhj1004v/posts?tag=react%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
 
+※ 벨로그 리액트로 구현하기 카테고리에서 내용을 확인할 수 있습니다 
+<p style="display:flex;" ><img align="left" width="224" alt="스크린샷 2024-10-04 오전 5 29 52" src="https://github.com/user-attachments/assets/4555327c-7698-47db-aa8c-a19ef0f935ff"></p>
 
-
-<br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 ## How to use
 #### ✅ PR 작성시 참고 
 
