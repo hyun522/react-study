@@ -22,6 +22,11 @@ ${\textsf{\color{gray}⬇️ 구현할 기능에 대한 정보입니다.}}$
 
 > [🖇️ 링크](https://glory-cornflower-db3.notion.site/react-6069f49da76844a28e0b4594ddeb2732?pvs=4)
 
+${\textsf{\color{gray}⬇️ 구현한 기능을 확인할 수 있습니다..}}$
+
+> [🖇️ 링크](https://velog.io/@jhj1004v/posts?tag=react%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+
+
 
 <br /><br />
 ## How to use
